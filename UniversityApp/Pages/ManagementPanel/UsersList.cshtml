@@ -1,0 +1,74 @@
+﻿@page
+@model UniversityApp.Pages.ManagementPanel.UsersListModel
+@inject IStringLocalizer<UsersListModel> localizer
+@{ ViewData["Title"] = "Users List"; }
+
+@*<div class="search-wrapper">
+        <input type="text" id="search" onkeyup="searchInput()" placeholder="Search for names..">
+    </div>*@
+
+<table id="myTable" class="styled-table" style="width:100%">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>@localizer["Full Name"]</th>
+            <th>@localizer["Username"]</th>
+            <th>Email</th>
+            @*<th>Role</th>*@
+            <th>@localizer["Phone Number"]</th>
+            <th>@localizer["Email Confirmed"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+<tr class="active-row">
+    <th>@user.Id</th>
+    <th>@user.FullName</th>
+    <th>@user.UserName</th>
+    <th>@user.Email</th>
+    @*@foreach (var item in Model.Roles.GetRolesAsync(user))
+        {
+            <th>@item</th>
+        }*@
+    <th>@user.PhoneNumber</th>
+    <th>@user.EmailConfirmed</th>
+</tr>
+}
+    </tbody>
+</table>
+
+<div class="userslist-table-footer">
+    <a id="details" class="btn btn-outline-dark" title="@localizer["Details"]">
+        <i class="fas fa-info-circle pixel40"></i>
+    </a>
+    <a asp-page="./Add" class="btn btn-outline-dark" title="@localizer["Add User"]">
+        <i class="fas fa-user-plus pixel40"></i>
+    </a>
+    <a id="update" class="btn btn-outline-dark" title="@localizer["Edit User"]">
+        <i class="fas fa-user-edit pixel40"></i>
+    </a>
+    <a id="delete" class="btn btn-outline-dark" title="@localizer["Delete User"]">
+        <i class="fas fa-trash pixel40"></i>
+    </a>
+</div>
+
+<script type="text/javascript">
+
+    $(".active-row").click(function () {
+        $(this).addClass('selected').siblings().removeClass('selected');
+        var value = $(this).find('th:first').html();
+
+        $("#details").attr("href", "./Details/" + value);
+        $("#delete").attr("href", "./Delete/" + value);
+        $("#update").attr("href", "./Edit/" + value);
+    });
+
+
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            responsive: true,
+            "pageLength": 10
+        });
+    });
+</script>

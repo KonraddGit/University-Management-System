@@ -1,0 +1,14 @@
+﻿@page "{subjectId}"
+@model UniversityApp.Pages.ManagementPanel.DeleteSubjectModel
+@inject IStringLocalizer<DeleteSubjectModel> localizer
+@{
+}
+
+<h2>@localizer["Delete"]!</h2>
+<div class="alert alert-danger">
+    @localizer["Are you sure you want to delete"] @Model.Subjects.SubjectName?
+</div>
+<form method="post">
+    <button type="submit" class="btn btn-danger">@localizer["Yes"]!</button>
+        <a asp-page="./SubjectList" class="btn btn-default">@localizer["Cancel"]</a>
+</form>

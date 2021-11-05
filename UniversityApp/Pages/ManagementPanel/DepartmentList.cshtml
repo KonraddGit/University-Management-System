@@ -1,0 +1,44 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization
+@using UniversityApp.Data.Interfaces;
+@inject IAuthorizationService AuthorizationService
+@inject IUsersData usersData
+@inject IStringLocalizer<DepartmentListModel> localizer
+@model UniversityApp.Pages.ManagementPanel.DepartmentListModel
+@{ var isOfficeResult = await AuthorizationService
+                                                .AuthorizeAsync(User, "IsOffice");
+
+    var isStudentResult = await AuthorizationService
+                        .AuthorizeAsync(User, "IsStudent"); }
+
+
+<div class="cards">
+    @foreach (var department in Model.Departments)
+    {
+<div class="card-single">
+    <div>
+        <h1>@department.DepartmentName</h1>
+
+        <a asp-page="./AboutDepartment" asp-route-departmentId="@department.DepartmentId">
+            <i style="color: black; padding: 3rem; font-size: 40px;" class="fas fa-play"> Informacja</i>
+        </a>
+        @if (department.SignInAvailable == true)
+        {
+<h3>@localizer["Zarejestruj się"]!</h3> }
+else
+{
+    <h3>@localizer["Rejestracja zamknięte"]!</h3>}</div>
+    <div>
+        <span class="fas fa-school"></span>
+    </div>
+</div>}
+</div>
+
+@if (isOfficeResult.Succeeded)
+{
+<div class="userslist-table-footer">
+    <a asp-page="./AddDepartment" class="btn btn-outline-dark" title="@localizer["Dodaj rocznik"]">
+        <i class="fas fa-plus-square pixel40"></i>
+    </a>
+</div>}
+

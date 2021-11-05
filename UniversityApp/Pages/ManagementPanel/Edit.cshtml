@@ -1,0 +1,38 @@
+﻿@page "{userId}"
+@model EditModel
+@inject IStringLocalizer<EditModel> localizer
+@{ ViewData["Title"] = "Edytowanie"; }
+
+<h2>@localizer["Edytowanie"] @Model.User.Identity.Name</h2>
+
+<form method="post">
+
+    <input type="hidden" asp-for="@Model.UserId.Id" />
+
+    <div class="form-group">
+        <label asp-for="UserId.FirstName"></label>
+        <input asp-for="UserId.FirstName" class="form-control" />
+        <span class="text-danger" asp-validation-for="UserId.FirstName"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="UserId.LastName"></label>
+        <input asp-for="UserId.LastName" class="form-control" />
+        <span class="text-danger" asp-validation-for="UserId.LastName"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="UserId.Email"></label>
+        <input asp-for="UserId.Email" class="form-control" />
+        <span class="text-danger" asp-validation-for="UserId.Email"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Rola</label>
+        <select class="form-control" asp-for="Role"
+                asp-items="@Model.Roles">
+            <span class="text-danger" asp-validation-for="Role"></span>
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="@localizer["Stwórz"]" class="btn btn-default" />
+    </div>
+</form>

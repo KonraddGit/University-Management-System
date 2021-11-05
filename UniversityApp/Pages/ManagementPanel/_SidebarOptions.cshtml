@@ -1,0 +1,173 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@inject IStringLocalizer<IndexModel> localizer
+
+@{ var isAdminResult = await AuthorizationService
+                           .AuthorizeAsync(User, "IsAdmin");
+
+    var isStudentResult = await AuthorizationService
+                        .AuthorizeAsync(User, "IsStudent");
+
+    var isTeacherResult = await AuthorizationService
+                        .AuthorizeAsync(User, "IsTeacher");
+
+    var isOfficeResult = await AuthorizationService
+                        .AuthorizeAsync(User, "IsOffice");}
+
+<div class="sidebar-menu">
+
+    <div class="menu-head">
+        <span>@localizer["Panel"]</span>
+    </div>
+    <ul>
+        <li>
+            <a asp-page="./Index">
+                <span class="fas fa-home"></span>
+                @localizer["Strona główna"]
+            </a>
+        </li>
+    </ul>
+
+    @if (isTeacherResult.Succeeded)
+    {
+
+<div class="menu-head">
+    <span>@localizer["Opcje"]</span>
+</div>
+<ul>
+    <li>
+        <a asp-page="./Announcement">
+            <span class="fas fa-clipboard-list"></span>
+            @localizer["Ogłoszenia"]
+        </a>
+    </li>
+    <li>
+        <a asp-page="./FilesManager">
+            <span class="fas fa-file-excel"></span>
+            @localizer["Pliki"]
+        </a>
+    </li>
+    <li>
+        <a asp-page="./Calendar">
+            <span class="fas fa-calendar"></span>
+            Kalendarz
+        </a>
+    </li>
+</ul>}
+
+    @if (isAdminResult.Succeeded)
+    {
+
+<div class="menu-head">
+    <span>Opcje</span>
+</div>
+<ul>
+    <li>
+        <a asp-page="./UsersList">
+            <span class="fas fa-users"></span>
+            Użytkownicy
+        </a>
+    </li>
+    <li>
+        <a asp-page="./Verification">
+            <span class="fas fa-users-slash"></span>
+            Weryfikacja
+        </a>
+    </li>
+    <li>
+        <a asp-page="./Announcement">
+            <span class="fas fa-clipboard-list"></span>
+            Ogłoszenia
+        </a>
+    </li>
+    <li>
+        <a href="../hangfire">
+            <span class="fas fa-terminal"></span>
+            Konsola
+        </a>
+    </li>
+    <li>
+        <a asp-page="./Calendar">
+            <span class="fas fa-calendar"></span>
+            Kalendarz
+        </a>
+    </li>
+</ul>}
+
+    @if (isStudentResult.Succeeded)
+    {
+<div class="menu-head">
+    <span>Opcje</span>
+</div>
+<ul>
+    <li>
+        <a asp-page="./DepartmentList">
+            <span class="fas fa-school"></span>
+            Roczniki
+        </a>
+    </li>
+    <li>
+        <a asp-page="./Announcement">
+            <span class="fas fa-clipboard-list"></span>
+            Ogłoszenia
+        </a>
+    </li>
+    <li>
+        <a asp-page="./FilesManager">
+            <span class="fas fa-file-excel"></span>
+            Pliki
+        </a>
+    </li>
+    <li>
+        <a asp-page="./Calendar">
+            <span class="fas fa-calendar"></span>
+            Kalendarz
+        </a>
+    </li>
+    <li>
+        <a asp-page="./Contact">
+            <span class="fas fa-info"></span>
+            Kontakt
+        </a>
+    </li>
+</ul>}
+
+    @if (isOfficeResult.Succeeded)
+    {
+<div class="menu-head">
+    <span>Opcje</span>
+</div>
+                <ul>
+                    <li>
+                        <a asp-page="./Announcement">
+                            <span class="fas fa-scroll"></span>
+                            Ogłoszenia
+                        </a>
+                    </li>
+
+                    <li>
+                        <a asp-page="./DepartmentList">
+                            <span class="fas fa-school"></span>
+                            Roczniki
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-page="./FilesManager">
+                            <span class="fas fa-file-excel"></span>
+                            Pliki
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-page="./SubjectList">
+                            <span class="fas fa-notes-medical"></span>
+                            Przedmioty
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-page="./Calendar">
+                            <span class="fas fa-calendar"></span>
+                            Kalendarz
+                        </a>
+                    </li>
+                </ul>}
+</div>

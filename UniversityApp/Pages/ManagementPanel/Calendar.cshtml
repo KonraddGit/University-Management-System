@@ -1,0 +1,46 @@
+﻿@page
+@model UniversityApp.Pages.ManagementPanel.CalendarModel
+@{
+    Layout = null;
+}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js"></script>
+<link rel="stylesheet" href="~/css/newSite.css" />
+<link rel="stylesheet" href="~/css/FontAwesome/Icons.css" />
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
+
+<div class="page-content page-container align-content-center" id="page-content">
+    <div class="padding">
+        <div class="row container-fluid d-flex justify-content-center">
+            <div class="col-lg-8 grid-margin stretch-card">
+                <div class="card rounded-lg bg-light font-weight-normal">
+                    <div class="card-body">
+                        <div id='calendar'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center" style="margin-top: -80px;">
+    <a class="btn btn-primary mb-2 text-white bg-warning border-0" asp-page="./Index">
+        <i class="fa fa-backward"> Wróć</i>
+    </a>
+</div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth'
+        });
+        calendar.setOption('height', 520);
+        calendar.render();
+    });
+
+</script>

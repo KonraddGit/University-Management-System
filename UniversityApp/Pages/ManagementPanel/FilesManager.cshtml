@@ -1,0 +1,123 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@inject IStringLocalizer<FilesManagerModel> localizer
+@model UniversityApp.Pages.ManagementPanel.FilesManagerModel
+@{
+    var isOfficeResult = await AuthorizationService
+                                                        .AuthorizeAsync(User, "IsOffice");
+    var jsonString = string.Empty;
+
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+
+<table id="myTable" class="styled-table" style="width:100%">
+    <thead>
+        <tr>
+            <th>@localizer["Date"]</th>
+            <th>@localizer["File Name"]</th>
+            <th>@localizer["Options"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var file in Model.Files)
+        {
+            <tr class="active-row">
+                <th>@file.Date</th>
+                <th>@file.FileName</th>
+                <th>
+                    <div class="card-footer">
+
+                        <a id="displayButton" class="btn btn-dark" onclick="displayPlan('@file.Content')">
+                            <i class="fas fa-tv"></i>
+                        </a>
+                        <a id="displayButton" class="btn btn-dark" onclick="download('@file.Content')">
+                            <i class="fas fa-download"></i>
+                        </a>
+                        @if (isOfficeResult.Succeeded)
+                        {
+                            <a class="btn btn-dark" asp-page="./DeleteFile" asp-route-fileId="@file.Id">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        }
+
+                    </div>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div id="display" class="text-center">
+</div>
+
+
+@if (isOfficeResult.Succeeded)
+{
+    <div class="userslist-table-footer">
+        <a asp-page="./AddFile" class="btn btn-outline-dark" title="@localizer["Add File"]">
+            <i class="fas fa-plus-square pixel40"></i>
+        </a>
+    </div>
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            responsive: true,
+            "pageLength": 10
+        });
+    });
+
+    function displayPlan(json) {
+        var removeTrails = json.replace("\\", "");
+        var jsonFormatted = removeTrails.substring(12, removeTrails.length - 1);
+
+        var json = JSON.parse(jsonFormatted);
+
+        let table =
+            '<table class="styled-table" style="width:100%">' +
+            '<thead>' +
+            '<tr>' +
+            '<th>Date</th>' +
+            '<th>Subject</th>' +
+            '<th>Teacher</th>' +
+            '</tr>' +
+            '</thead>' +
+            '<tbody>';
+
+
+        for (let i = 0; i < json.Date.length; i++) {
+
+            var date = json.Date[i].replace("T", " ");
+            table += '<tr>';
+            table += '<td>' + date + '</td>';
+            table += '<td>' + json.Subject[i] + '</td>';
+            table += '<td>' + json.Teacher[i] + '</td>';
+        }
+
+        table += '</tr></tbody></table>';
+
+        document.getElementById("display").innerHTML = table;
+    }
+
+    function download(json) {
+
+        var removeTrails = json.replace("\\", "");
+        var jsonFormatted = removeTrails.substring(12, removeTrails.length - 1);
+
+        var json = JSON.parse(jsonFormatted);
+        var doc = new jsPDF();
+        json.forEach(function(json, i){
+
+        var date = json.Date[i].replace("T", " ");
+        doc.text(20, 10 + (i * 10),
+         "Date: " + json.date +
+         "Subject: " + json.Subject +
+         "Teacher: " + json.Teacher);
+        });
+        doc.save('Test.pdf');
+    }
+</script>

@@ -1,0 +1,14 @@
+﻿@page "{departmentId}"
+@model UniversityApp.Pages.ManagementPanel.CloseCourseModel
+@inject IStringLocalizer<CloseCourseModel> localizer
+@{
+}
+
+<h2>@localizer["Close"]!</h2>
+<div class="alert alert-danger">
+    @localizer["Are you sure you want to close course"] @Model.Department.DepartmentName?
+</div>
+<form method="post">
+    <button type="submit" class="btn btn-danger">@localizer["Yes"]!</button>
+    <a asp-page="./DepartmentList" class="btn btn-default">@localizer["Cancel"]</a>
+</form>

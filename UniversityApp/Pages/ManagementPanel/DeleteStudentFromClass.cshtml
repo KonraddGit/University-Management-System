@@ -1,0 +1,14 @@
+﻿@page  "{Id}"
+@model UniversityApp.Pages.ManagementPanel.DeleteStudentFromClassModel
+@inject IStringLocalizer<DeleteStudentFromClassModel> localizer
+@{
+}
+
+<h2>@localizer["Delete"]!</h2>
+<div class="alert alert-danger">
+    @localizer["Are you sure you want to delete this student from department?"] @Model.UserInClass.FullName?
+</div>
+<form method="post">
+    <button type="submit" class="btn btn-danger">@localizer["Yes"]!</button>
+    <a asp-page="./DepartmentList" class="btn btn-default">@localizer["Cancel"]</a>
+</form>

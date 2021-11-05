@@ -1,0 +1,49 @@
+﻿@page
+@model UniversityApp.Pages.ManagementPanel.SubjectListModel
+@inject IStringLocalizer<SubjectListModel> localizer
+@{
+}
+
+<table class="styled-table" style="width:100%">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>@localizer["Subject"]</th>
+            <th>@localizer["Building"]</th>
+            <th>@localizer["Room"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subject in Model.Subjects)
+        {
+            <tr class="active-row">
+                <th>@subject.SubjectId</th>
+                <th>@subject.SubjectName</th>
+                @*<th>@subject.Room.Building?</th>
+                    <th>@subject.Room.RoomNumber?</th>*@
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="userslist-table-footer">
+    <a asp-page="./AddSubject" class="btn btn-outline-dark" title="@localizer["Add Subject"]">
+        <i class="fas fa-plus-square pixel40"></i>
+    </a>
+    <a id="update" class="btn btn-outline-dark" title="@localizer["Edit Subject"]">
+        <i class="fas fa-edit pixel40"></i>
+    </a>
+    <a id="delete" class="btn btn-outline-dark" title="@localizer["Delete Subject"]">
+        <i class="fas fa-trash pixel40"></i>
+    </a>
+</div>
+
+<script type="text/javascript">
+
+    $(".active-row").click(function () {
+        $(this).addClass('selected').siblings().removeClass('selected');
+        var value = $(this).find('th:first').html();
+
+        $("#delete").attr("href", "./DeleteSubject/" + value);
+        $("#update").attr("href", "./EditSubject/" + value);
+    });</script>

@@ -1,0 +1,54 @@
+﻿@page
+@model AddModel
+@inject IStringLocalizer<AddModel> localizer
+@{
+    ViewData["Title"] = "Stwórz";
+}
+
+<h2>@localizer["Stwórz"]</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserId.FirstName" class="control-label"></label>
+                <input asp-for="UserId.FirstName" class="form-control" required />
+                <span asp-validation-for="UserId.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId.LastName" class="control-label"></label>
+                <input asp-for="UserId.LastName" class="form-control" required />
+                <span asp-validation-for="UserId.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId.Email" class="control-label"></label>
+                <input asp-for="UserId.Email" class="form-control" placeholder="Email Address" tabindex="10" required />
+                <span asp-validation-for="UserId.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Input.Password" class="control-label"></label>
+                <input asp-for="Input.Password" class="form-control" required />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Rola</label>
+                <select class="form-control" asp-for="Role"
+                        asp-items="@Model.Roles">
+                    <span class="text-danger" asp-validation-for="Role"></span>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="@localizer["Stwórz"]" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

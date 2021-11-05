@@ -1,0 +1,40 @@
+﻿@page "{userId}"
+@model UniversityApp.Pages.ManagementPanel.DetailsModel
+@inject IStringLocalizer<DetailsModel> localizer
+@{ }
+
+
+@if (User.Identity.IsAuthenticated)
+{
+<table class="table table-sm">
+    <tr>
+        <td>@localizer["FullName"]: @Model.UserId.FullName</td>
+    </tr>
+    <tr>
+        <td>Email: @Model.UserId.Email</td></tr>
+    <tr>
+        <td>@localizer["EmailConfirmed"]: @Model.UserId.EmailConfirmed</td></tr>
+    <tr>
+        <td>Id: @Model.UserId.Id</td>
+    </tr>
+    <tr>
+        <td>@localizer["NormalizedEmail"]: @Model.UserId.NormalizedEmail</td></tr>
+    <tr>
+        <td>@localizer["PhoneNumber"]: @Model.UserId.PhoneNumber</td></tr>
+    <tr>
+        <td>@localizer["PhoneNumberConfirmed"]: @Model.UserId.PhoneNumberConfirmed</td></tr>
+    <tr>
+        <td>@localizer["TwoFactorEnabled"]: @Model.UserId.TwoFactorEnabled</td></tr>
+    <tr>
+        <td>@localizer["UserName"]: @Model.UserId.UserName</td></tr>
+    <tr>
+        <td>@localizer["SecurityStamp"]: @Model.UserId.SecurityStamp</td></tr>
+    <tr>
+        <td>@localizer["RegisteredTime"]: @Model.UserId.DateTime</td></tr>
+</table>}
+
+<div class="userslist-table-footer">
+    <a class="btn btn-outline-dark" asp-page="./UsersList">
+        <i class="fas fa-backward pixel40"></i>
+    </a>
+</div>

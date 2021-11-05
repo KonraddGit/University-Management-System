@@ -1,0 +1,14 @@
+﻿@page "{topic}"
+@model DeleteAnnouncementModel
+@inject IStringLocalizer<DeleteAnnouncementModel> localizer
+@{ ViewData["Title"] = "Delete"; }
+
+
+<h2>@localizer["Delete"]!</h2>
+<div class="alert alert-danger">
+    @localizer["Are you sure you want to delete"] @Model.Topic.Title?
+</div>
+<form method="post">
+    <button type="submit" class="btn btn-danger">
+        @localizer["Yes"]!</button>
+    <a asp-page="./Announcement" class="btn btn-default">@localizer["Cancel"]</a></form>

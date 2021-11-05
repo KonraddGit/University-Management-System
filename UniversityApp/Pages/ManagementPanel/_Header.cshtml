@@ -1,0 +1,45 @@
+﻿@* Dashboard *@
+<div class="menu-toggle">
+    <label for="sidebar-toggle">
+        <span class="fas fa-bars"></span>
+    </label>
+</div>
+
+@* Searcher *@
+<div class="search-wrapper">
+    <span class="fas fa-search"></span>
+    <input type="text" id="searcher" placeholder="Szukaj" onkeydown="search()" />
+</div>
+@*<div class="search-wrapper">
+    <span class="fas fa-search"></span>
+    <input type="text" id="search" placeholder="Search here" onkeyup="searchInput()" />
+</div>*@
+
+@* User panel *@
+<partial name="./_LoginPartial" />
+
+
+<script>
+
+    function searchInput() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("search");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("th")[1];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

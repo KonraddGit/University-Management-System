@@ -1,0 +1,25 @@
+﻿@page "{topic}"
+@model DetailsAnnouncementModel
+@inject IStringLocalizer<DetailsModel> localizer
+@{ }
+
+
+@if (User.Identity.IsAuthenticated)
+{
+<table class="table table-sm">
+    <tr>
+        <td>@localizer["Title"]: @Model.Announcement.Title</td>
+    </tr>
+    <tr>
+        <td>@localizer["Author"]: @Model.Announcement.Author</td></tr>
+    <tr>
+        <td>@localizer["Description"]: @Model.Announcement.Description</td></tr>
+    <tr>
+        <td>@localizer["Date"]: @Model.Announcement.Date</td></tr>
+</table>}
+
+<div class="userslist-table-footer">
+    <a class="btn btn-outline-dark" asp-page="./Announcement">
+        <i class="fas fa-backward pixel40"></i>
+    </a>
+</div>

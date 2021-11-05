@@ -1,0 +1,137 @@
+﻿
+:root {
+    --backgroundcolor: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+    --blue-color: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+    --main-color: linear-gradient(90deg, rgba(66,97,255,1) 0%, rgba(12,33,193,0.7315301120448179) 100%);
+}
+
+
+* {
+    padding: 0;
+    margin: 0;
+    font-size: large;
+    box-sizing: border-box;
+    list-style-type: circle;
+    text-decoration: double;
+    font-family: Calibri;
+}
+
+body {
+    background: var(--backgroundcolor);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+}
+
+.flex {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto
+}
+
+.container-fluid {
+}
+
+.padding {
+    padding: 5rem
+}
+
+.tableHeader {
+    text-align: center;
+    background: var(--backgroundcolor);
+}
+
+
+.card {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -ms-box-shadow: none
+}
+
+.pl-3,
+.px-3 {
+    padding-left: 1rem !important
+}
+
+.card {
+    background: #fff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-clip: border-box;
+    border-radius: 0
+}
+
+    .card .card-title {
+        color: #000000;
+        margin-bottom: 0.625rem;
+        font-size: 0.875rem;
+        font-weight: 500
+    }
+
+    .card .card-description {
+        margin-bottom: .875rem;
+        font-weight: 400;
+        color: #76838f
+    }
+
+p {
+    font-size: 0.875rem;
+    margin-bottom: .5rem;
+    line-height: 1.5rem
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar
+}
+
+.table,
+.jsgrid .jsgrid-table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent
+}
+
+    .table thead th,
+    .jsgrid .jsgrid-table thead th {
+        border-top: 0;
+        border-bottom-width: 1px;
+        font-weight: 500;
+        font-size: .875rem;
+        text-transform: uppercase
+    }
+
+    .table td,
+    .jsgrid .jsgrid-table td {
+        font-size: 0.875rem;
+        padding: .475rem 0.4375rem
+    }
+
+.mt-10 {
+    padding: 0.875rem 0.3375rem !important
+}
+
+button {
+    outline: 0 !important
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0rem rgba(0, 123, 255, .25) !important
+}
+
+.badge {
+    border-radius: 0;
+    font-size: 12px;
+    line-height: 1;
+    padding: .375rem .5625rem;
+    font-weight: normal;
+    border: none
+}

@@ -1,0 +1,200 @@
+﻿@page
+@model UniversityApp.Pages.ManagementPanel.ContactModel
+@{
+}
+
+<style>
+    :root {
+        --backgroundcolor: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    #map {
+        height: 100%;
+        width: 100%;
+    }
+
+    .column {
+    text-align:center;
+    align-content:center;
+        float: left;
+        width: 33%;
+        height: 160px;
+        padding: 0 10px;
+        background: var(--backgroundcolor);
+    }
+
+    .row {
+        margin: 0 -5px;
+    }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+        padding: 16px;
+        text-align: center;
+        background-color: #fff;
+        justify-content:center;
+        justify-items:center;
+    }
+
+    .tableHead {
+    text-align: center;
+        background: var(--backgroundcolor);
+    }
+
+</style>
+
+<div class="row">
+    <div class="column">
+        <div class="card">
+            <table>
+                <thead>
+                    <tr class="tableHead">
+                        <th>Dane adresowe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Akademia Techniczno-Humanistyczna
+                            43-309 Bielsko-Biała, ul. Willowa 2
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <table>
+                <thead>
+                    <tr class="tableHead">
+                        <th>
+                            Centrala telefoniczna:
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            tel. +48 33 8279682
+                            fax: +48 33 8279355
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <table>
+                <thead>
+                    <tr class="tableHead">
+                        <th>
+                            Regon:
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            072728961
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <table>
+                <thead>
+                    <tr class="tableHead">
+                        <th>
+                            NIP:
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            547-194-37-84
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <table>
+                <thead>
+                    <tr class="tableHead">
+                        <th>
+                            Elektroniczna Skrzynka Podawcza
+                            Identyfikator:
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            ATH_Bielsko_Biala
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <table>
+                <thead>
+                    <tr class="tableHead">
+                        <th>
+                            Konto bieżące:
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Bank Pekao S.A. 02 12404142 11110000 48278261
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <table>
+                <thead>
+                    <tr class="tableHead">
+                        <th>
+                            Inne konta:
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Studia Podyplomowe: 21 12404142 11110010 54573476
+                            Kursy: 66 12404142 11110010 54573636
+                            Konferencje: 73 12404142 11110010 54572831
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

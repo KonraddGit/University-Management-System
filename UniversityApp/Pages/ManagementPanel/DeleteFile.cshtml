@@ -1,0 +1,15 @@
+﻿@page "{fileId}"
+@model UniversityApp.Pages.ManagementPanel.DeleteFileModel
+@inject IStringLocalizer<DeleteFileModel> localizer
+@{
+
+}
+
+<h2>@localizer["Delete"]!</h2>
+<div class="alert alert-danger">
+    @localizer["Are you sure you want to delete file?"]
+</div>
+<form method="post">
+    <button type="submit" class="btn btn-danger">@localizer["Yes"]!</button>
+    <a asp-page="./FilesManager" class="btn btn-default">@localizer["Cancel"]</a>
+</form>

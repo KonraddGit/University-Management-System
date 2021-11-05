@@ -1,0 +1,39 @@
+﻿@page
+@model UniversityApp.Pages.ManagementPanel.AddSubjectModel
+@inject IStringLocalizer<AddSubjectModel> localizer
+@{
+}
+
+<h2>@localizer["Create"]</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Subject.SubjectName" class="control-label"></label>
+                <input asp-for="Subject.SubjectName" class="form-control" required />
+                <span asp-validation-for="Subject.SubjectName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Subject.Room.Building" class="control-label"></label>
+                <input asp-for="Subject.Room.Building" class="form-control" tabindex="1" required  />
+                <span asp-validation-for="Subject.Room.Building" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Subject.Room.RoomNumber" class="control-label"></label>
+                <input asp-for="Subject.Room.RoomNumber" class="form-control" />
+                <span asp-validation-for="Subject.Room.RoomNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="@localizer["Create"]" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./SubjectList">@localizer["Back to List"]</a>
+</div>

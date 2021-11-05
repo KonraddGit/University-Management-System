@@ -1,0 +1,67 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@inject IStringLocalizer<Announcement> localizer
+@model UniversityApp.Pages.ManagementPanel.AnnouncementModel
+@{
+    ViewData["Title"] = "Add Announcement";
+
+    var isOfficeResult = await AuthorizationService
+                        .AuthorizeAsync(User, "IsOffice");}
+
+<table id="myTable" class="styled-table" style="width:100%">
+    <thead>
+        <tr>
+            <th>@localizer["Title"]</th>
+            <th>@localizer["Author"]</th>
+            <th>@localizer["Description"]</th>
+            <th>@localizer["Date"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var topic in Model.Announcements)
+        {
+            <tr class="active-row">
+                <th>@topic.Title</th>
+                <th>@topic.Author</th>
+                <th>@topic.Description</th>
+                <th>@topic.Date</th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="userslist-table-footer">
+    <a id="details" class="btn btn-outline-dark" title="@localizer["Details"]">
+        <i class="fas fa-info-circle pixel40"></i>
+    </a>
+
+    @if (isOfficeResult.Succeeded)
+    {
+        <a asp-page="./AddAnnouncement" class="btn btn-outline-dark" title="@localizer["Add"]">
+            <i class="fas fa-newspaper pixel40"></i>
+        </a>
+        <a id="delete" class="btn btn-outline-dark" title="@localizer["Delete"]">
+            <i class="fas fa-trash pixel40"></i>
+        </a>
+    }
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            responsive: true,
+            "pageLength": 10
+        });
+    });
+
+    $(".active-row").click(function () {
+        $(this).addClass('selected').siblings().removeClass('selected');
+        var value = $(this).find('th:first').html();
+
+        $("#details").attr("href", "./DetailsAnnouncement/" + value);
+        $("#delete").attr("href", "./DeleteAnnouncement/" + value);
+    });
+
+</script>

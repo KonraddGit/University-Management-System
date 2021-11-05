@@ -1,0 +1,383 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization
+@using UniversityApp.Data.Interfaces;
+@inject IAuthorizationService AuthorizationService
+@inject IUsersData usersData
+@inject IStringLocalizer<IndexModel> localizer
+@model IndexModel
+@{ ViewData["Title"] = "Index";
+
+    var isAdminResult = await AuthorizationService
+                             .AuthorizeAsync(User, "IsAdmin");
+
+    var isStudentResult = await AuthorizationService
+                        .AuthorizeAsync(User, "IsStudent");
+
+    var isOfficeResult = await AuthorizationService
+                        .AuthorizeAsync(User, "IsOffice");
+
+    var isTeacherResult = await AuthorizationService
+                        .AuthorizeAsync(User, "IsTeacher"); }
+
+
+
+@if (isAdminResult.Succeeded)
+{@*Karty customers, projects, orders, income*@
+                <div class="cards">
+
+                    <div class="card-single">
+                        <div>
+                            <h1>@Model.UsersAmount</h1>
+                            <span>@localizer["Total Users"]</span>
+                        </div>
+                        <div>
+                            <span class="fas fa-user-astronaut"></span>
+                        </div>
+                    </div>
+
+                    <div class="card-single">
+                        <div>
+                            <h1>@Model.NotConfirmedAmount</h1>
+                            <span>@localizer["Not Confirmed"]</span>
+                        </div>
+                        <div>
+                            <span class="fas fa-user-secret"></span>
+                        </div>
+                    </div>
+
+                    <div class="card-single">
+                        <div>
+                            <h1>@Model.Departments.Count()</h1>
+                            <span>@localizer["Courses"]</span>
+                        </div>
+                        <div>
+                            <span class="fas fa-university"></span>
+                        </div>
+                    </div>
+
+                    <div class="card-single">
+                        <div>
+                            <h1><span id="clock"></span></h1>
+                            <div>
+                                <span class="fas fa-clock"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                                <div class="recent-grid">
+
+                                    @* Announcements *@
+                                    <div class="projects">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h2>@localizer["Recent Topics"]</h2>
+
+                                                <a asp-page="./Announcement">
+                                                    <button>
+                                                        @localizer["See all"]
+                                                    </button>
+                                                </a>
+                                            </div>
+
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table width="100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <td>@localizer["Title"]</td>
+                                                                <td>@localizer["Author"]</td>
+                                                                <td>@localizer["Description"]</td>
+                                                                <td>@localizer["Date"]</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var item in Model.Announcement)
+                                                            {
+                                            <tr>
+
+                                                <td>@item.Title</td>
+                                                <td>@item.Author</td>
+
+                                                @if (item.Description.Length > 30)
+                                                {
+                            <td>@item.Description.Substring(0, 30)...</td>
+ }
+                        else
+                        {
+    <td>@item.Description</td>
+}
+                                                <td>
+                                                    <span class="status purple"></span>
+                                                    @item.Date
+                                                </td>
+
+                                            </tr>
+}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    @*New Customer*@
+                                    <div class="customers">
+
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3>@localizer["New Users"]</h3>
+
+                                                <a asp-page="./Verification">
+                                                    <button>
+                                                        @localizer["See all"]
+                                                    </button>
+                                                </a>
+                                            </div>
+
+                                            @* new users not confirmed *@
+                                            <div class="card-body">
+                                                @foreach (var user in Model.UsersNotConfirmed.Take(6))
+                                                {
+                                                    var role = usersData.ReturnRole(user);
+
+                                                    var image = $"{role}.jpg";
+
+                                <div class="customer">
+                                    <div class="info">
+                                        <img src="img/RoleIcon/@image" width="40px" height="40px" alt="">
+                                        <div>
+                                            <h4>@user.FullName</h4>
+                                            <small>@role</small>
+                                        </div>
+                                    </div>
+                                    <div class="contact">
+                                        <span class="fas fa-user-check"></span>
+                                        <span class="fas fa-comment"></span>
+                                        <span class="fas fa-phone"></span>
+                                    </div>
+                                </div>}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>}
+
+@if (isTeacherResult.Succeeded)
+{
+
+<div class="recent-grid">
+
+    @* Announcements *@
+    <div class="projects">
+        <div class="card">
+            <div class="card-header">
+                <h2>@localizer["Recent Topics"]</h2>
+
+                <a asp-page="./Announcement">
+                    <button>
+                        @localizer["See all"]
+                        <span class="las la-arrow-right"></span>
+                    </button>
+                </a>
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table width="100%">
+                        <thead>
+                            <tr>
+                                <td>@localizer["Title"]</td>
+                                <td>@localizer["Author"]</td>
+                                <td>@localizer["Description"]</td>
+                                <td>@localizer["Date"]</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Announcement)
+                            {
+            <tr>
+
+                <td>@item.Title</td>
+                <td>@item.Author</td>
+
+                @if (item.Description.Length > 30)
+                {
+<td>@item.Description.Substring(0, 30)...</td>
+ }
+else
+{
+<td>@item.Description</td>
+}
+                <td>
+                    <span class="status purple"></span>
+                    @item.Date
+                </td>
+
+            </tr>
+}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div> @* Clock *@
+                <div class="cards">
+
+                    <div class="card-single">
+                        <div>
+                            <h1><span id="clock"></span></h1>
+                            <div>
+                                <span class="fas fa-clock"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>}
+
+@if (isStudentResult.Succeeded || isOfficeResult.Succeeded)
+{
+
+<div class="recent-grid">
+
+    @* Announcements *@
+    <div class="projects">
+        <div class="card">
+            <div class="card-header">
+                <h2>@localizer["Recent Topics"]</h2>
+
+                <a asp-page="./Announcement">
+                    <button>
+                        @localizer["See all"]
+                        <span class="las la-arrow-right"></span>
+                    </button>
+                </a>
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table width="100%">
+                        <thead>
+                            <tr>
+                                <td>@localizer["Title"]</td>
+                                <td>@localizer["Author"]</td>
+                                <td>@localizer["Description"]</td>
+                                <td>@localizer["Date"]</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Announcement)
+                            {
+            <tr>
+
+                <td>@item.Title</td>
+                <td>@item.Author</td>
+
+                @if (item.Description.Length > 30)
+                {
+<td>@item.Description.Substring(0, 30)...</td>
+ }
+else
+{
+<td>@item.Description</td>
+}
+                <td>
+                    <span class="status purple"></span>
+                    @item.Date
+                </td>
+
+            </tr>
+}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div> @* Clock *@
+                <div class="cards">
+
+                    <div class="card-single">
+                        <div>
+                            <h1><span id="clock"></span></h1>
+                            <div>
+                                <span class="fas fa-clock"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div> @* Department list *@
+                                <div class="customers">
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h3>@localizer["Courses"]</h3>
+
+                                            <a asp-page="./DepartmentList">
+                                                <button>
+                                                    @localizer["See all"]
+                                                </button>
+                                            </a>
+                                        </div>
+
+
+                                        <div class="card-body">
+                                            @foreach (var course in Model.Departments.Take(6))
+                                            {
+                            <div class="customer">
+                                <div class="info">
+                                    <img src="~/img/CourseIcon/Course.jpg" width="40px" height="40px" alt="">
+                                    <div>
+                                        <h4>@course.DepartmentName</h4>
+                                    </div>
+                                </div>
+                                <div class="contact">
+                                    @if (course.SignInAvailable == true)
+                                    {
+                <h3>@localizer["Sign In"]!</h3> }
+            else
+            {
+<h3>@localizer["Signing Closed"]</h3>}
+                                </div>
+                            </div>}
+                                        </div>
+                                    </div>
+                                </div>}
+
+
+
+<script src="~/js/site.js"></script>
+
+<script type="text/javascript">
+    var tick;
+    function stop() {
+        clearTimeout(tick);
+    }
+    function clock() {
+        var ut = new Date();
+        var h, m, s;
+        var time = "        ";
+        h = ut.getHours();
+        m = ut.getMinutes();
+        s = ut.getSeconds();
+        if (s <= 9) s = "0" + s;
+        if (m <= 9) m = "0" + m;
+        if (h <= 9) h = "0" + h;
+        time += h + ":" + m + ":" + s;
+        document.getElementById('clock').innerHTML = time;
+        tick = setTimeout("clock()", 1000);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth'
+        });
+        calendar.render();
+    });
+</script>

@@ -1,0 +1,12 @@
+﻿@page "{departmentId}"
+@model UniversityApp.Pages.ManagementPanel.AddCourseModel
+@{ }
+
+<h2>Open!</h2>
+<div class="alert alert-danger">
+    Are you sure you want to open course @Model.Department.DepartmentName?
+</div>
+<form method="post">
+    <button type="submit" class="btn btn-danger">Yes!</button>
+    <a asp-page="./DepartmentList" class="btn btn-default">Cancel</a>
+</form>

@@ -1,0 +1,50 @@
+﻿@page
+@model UniversityApp.Pages.ManagementPanel.VerificationModel
+@inject IStringLocalizer<VerificationModel> localizer
+@{ ViewData["Title"] = "Verification"; }
+
+<table id="myTable" class="styled-table" style="width:100%">
+    <thead>
+        <tr>
+            <th>@localizer["Id"]</th>
+            <th>@localizer["Full Name"]</th>
+            <th>@localizer["Email"]</th>
+            <th>@localizer["Email Confirmed"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users.Where(x => x.EmailConfirmed == false))
+        {
+<tr class="active-row">
+    <th>@user.Id</th>
+    <th>@user.FullName</th>
+    <th>@user.Email</th>
+    <th>@user.EmailConfirmed</th>
+</tr>
+}
+    </tbody>
+</table>
+
+<div class="userslist-table-footer">
+    <a id="verify" class="btn btn-outline-dark" title="@localizer["Verify User"]">
+        <i class="fas fa-user-check pixel40"></i>
+    </a>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            responsive: true,
+            "pageLength": 10
+        });
+    });
+
+    $(".active-row").click(function () {
+        $(this).addClass('selected').siblings().removeClass('selected');
+        var value = $(this).find('th:first').html();
+
+        $("#verify").attr("href", "./Verify/" + value);
+    });
+
+</script>

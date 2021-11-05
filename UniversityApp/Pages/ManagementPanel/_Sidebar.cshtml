@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@{ var isOfficeResult = await AuthorizationService.AuthorizeAsync(User, "IsOffice");}
+
+<div class="sidebar-brand">
+
+    <div class="brand-flex">
+        <vc:culture-switcher />
+        <div class="brand-icons">
+            @if (isOfficeResult.Succeeded)
+            {
+                <a asp-page="./Email"><span class="fas fa-mail-bulk"></span></a>
+            }
+        </div>
+
+    </div>
+
+    <div class="sidebar-main">
+
+        @* Full name and email *@
+        <partial name="./_UsersInfo" />
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            @* SideBar options *@
+            <partial name="./_SidebarOptions" />
+        }
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#switchLanguage').ready(function () {
+
+    });
+</script>

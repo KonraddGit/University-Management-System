@@ -1,0 +1,91 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization
+@using UniversityApp.Data.Interfaces;
+@inject IAuthorizationService AuthorizationService
+@inject IDepartmentData departmentData
+@inject IStringLocalizer<AboutDepartmentModel> localizer
+@model UniversityApp.Pages.ManagementPanel.AboutDepartmentModel
+@{ var isOfficeResult = await AuthorizationService
+                                                    .AuthorizeAsync(User, "IsOffice");
+
+    var isStudentResult = await AuthorizationService
+                        .AuthorizeAsync(User, "IsStudent");
+
+    var available = Model.Department.SignInAvailable;
+
+    var isStudentInClass = await departmentData.CheckIfStudentIsAdded(Model.Department.DepartmentId); }
+
+@if (User.Identity.IsAuthenticated)
+{
+<table class="table table-sm">
+    <tr>
+        <td style="font-size:30px">@Model.Department.DepartmentName</td>
+        @*<td>Department: @Model.Department.OfficeRoom.Building</td>
+            <td>Department: @Model.Department.OfficeRoom.RoomNumber</td>
+            <td>Department: @Model.Department.OfficeRoom.RoomType</td>*@
+    </tr>
+</table>}
+
+<div class="userslist-table-footer">
+    <a class="btn btn-outline-dark" asp-page="./DepartmentList">
+        <i class="fas fa-backward pixel40"></i>
+    </a>
+    @if (isStudentResult.Succeeded && Model.Department.SignInAvailable == true && isStudentInClass != true)
+    {
+<a class="btn btn-outline-dark" asp-page="./SignInForClass" title="Zarejestruj się do klasy" asp-route-departmentId="@Model.Department.DepartmentId">
+    <i class="fas fa-sign-in-alt pixel40"></i>
+</a>
+                <p>@localizer["Zarejestruj się tutaj"]!</p>}
+    @if (isStudentInClass == true)
+    {
+<p>@localizer["Brawo! Czekaj na swoje aktywności"]</p>
+    
+<a class="btn btn-outline-dark" asp-page="./SignOffFromClass" title="Wyrejestruj się" asp-route-departmentId="@Model.Department.DepartmentId">
+    <i class="fas fa-sign-out-alt pixel40"></i>
+</a>
+    }
+</div>
+
+@if (isOfficeResult.Succeeded)
+{
+<div class="rightSide">
+    <div class="styled-table">
+        <table>
+            <thead>
+                <tr>
+                    <td>@localizer["Students"]</td>
+                    <td>@localizer["Options"]</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in Model.Students)
+                {
+                <tr>
+                        <td>@student.FullName</td>
+                        <td>
+                            <a class="btn btn-dark" asp-page="./DeleteStudentFromClass" asp-route-Id="@student.Id">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+                <div class="userslist-table-footer">
+                    @if (available == false)
+                    {
+                        <a class="btn btn-outline-dark" asp-page="./AddCourse" title="@localizer["Open Signing In"]" asp-route-departmentId="@Model.Department.DepartmentId">
+                        <i class="fas fa-folder-open pixel40"></i>
+                        </a> }
+                    else
+                        {
+                            <a class="btn btn-outline-dark" asp-page="./CloseCourse" title="@localizer["Close Signing In"]" asp-route-departmentId="@Model.Department.DepartmentId">
+                            <i class="fas fa-folder-minus pixel40"></i>
+                            </a>}
+
+                    <a class="btn btn-outline-dark" asp-page="./DeleteDepartment" title="@localizer["Delete Department"]" asp-route-departmentId="@Model.Department.DepartmentId">
+                        <i class="fas fa-trash pixel40"></i>
+                    </a>
+                </div>}

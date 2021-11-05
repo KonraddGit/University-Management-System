@@ -1,0 +1,13 @@
+﻿@page
+@model UniversityApp.Pages.ManagementPanel.DocumentModel
+@inject IStringLocalizer<DocumentModel> localizer
+@{
+}
+
+<h2>@localizer["Plan Wygenerowany"]</h2>
+
+<div class="userslist-table-footer">
+    <a id="verify" class="btn btn-outline-dark" title="OK" asp-page="./FilesManager">
+        <i class="fas fa-thumbs-up pixel40"></i>
+    </a>
+</div>

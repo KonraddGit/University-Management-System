@@ -1,0 +1,26 @@
+﻿@{
+    var fullName = User.Identity.IsAuthenticated ?
+        User.Claims.First(c => c.Type == "FullName").Value : "";
+
+    var role = String.Empty;
+    try
+    {
+        role = @User.Claims.First(c => c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role").Value;
+
+    }
+    catch (Exception)
+    {
+        role = "Gość";
+    }
+
+    var image = $"{role}.jpg";
+}
+
+<div class="sidebar-user">
+    <img src="~/img/RoleIcon/@image" alt="" />
+
+    <div>
+        <h3>@fullName</h3>
+        <h4 style="color: #efefef">@role</h4>
+    </div>
+</div>
